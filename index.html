@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frame Extractor</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #1a1a1a;
+    color: #fff;
+    overflow: hidden;
+    height: 100vh;
+}
+
+.clpabelbase {
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    z-index: 2000000000;
+}
+
+.classmenu {
+    position: absolute;
+    top: 15%;
+    left: 0%;
+    height: 70%;
+    background-color: #181818c0;
+    width: 50px;
+    z-index: 20;
+    border: 2px solid #5e5e5e;
+    border-radius: 0px 14px 14px 0px;
+}
+
+.centerclss {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.centerclasscolm {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.clbt {
+    width: 40px;
+    height: 40px;
+    background-color: #252525;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.clseccion {
+    position: absolute;
+    width: 80%;
+    height: 90%;
+    background-color: #1a1a1a;
+    left: 10%;
+    top: 5%;
+}
+
+.clsdivcanvas {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+}
+
+.workspace {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0a0a0a;
+}
+
+.canvas-area {
+    background-color: #ffffff;
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    cursor: crosshair;
+}
+
+.video-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+}
+
+video {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.cltooldcanvas {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #000000e6;
+    border: 2px solid #5e5e5e;
+    border-radius: 12px;
+    padding: 15px;
+    width: 250px;
+}
+
+.tool-group {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.tool-btn {
+    flex: 1;
+    padding: 8px;
+    font-size: 10px;
+    background-color: #252525;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.tool-btn.active {
+    background: #1f1f1f;
+}
+
+.tool-btn:hover {
+    background-color: #3a3a3a;
+}
+
+.control-group {
+    margin-bottom: 10px;
+}
+
+.control-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 11px;
+    color: #aaa;
+}
+
+input[type="color"] {
+    width: 100%;
+    height: 35px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #252525;
+}
+
+input[type="range"] {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.divmenu2 {
+    position: fixed;
+    top:20% ;
+    left: 70px;
+    background-color: #000000e6;
+    border: 2px solid #5e5e5e;
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 240px;
+}
+
+.divmenu3 {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #000000e6;
+    border: 2px solid #5e5e5e;
+    border-radius: 12px;
+    padding: 15px;
+    width: 250px;
+}
+
+.clinput {
+    width: 100%;
+    height: 35px;
+    border: none;
+    background-color: #252525;
+    color: #fff;
+    border-radius: 8px;
+    padding: 0 10px;
+    font-size: 12px;
+}
+
+.clbt2 {
+    width: 100%;
+    height: 35px;
+    background-color: #252525;
+    color: #fff;
+    border-radius: 8px;
+    font-size: 11px;
+    cursor: pointer;
+    border: none;
+}
+
+.clbt2:hover {
+    background-color: #000000;
+}
+
+.clbt:hover {
+    background-color: #000000;
+}
+
+.clbt.active {
+    background-color: #3a3a3a;
+}
+
+.marginmenus * {
+    margin: 5px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.status-bar {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000000e6;
+    padding: 8px 20px;
+    border: 2px solid #5e5e5e;
+    border-radius: 12px;
+    font-size: 11px;
+    color: #aaa;
+}
+
+.fullscreen-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.fullscreen-container.active {
+    display: flex;
+}
+
+.fullscreen-container video {
+    width: 100%;
+    height: 100%;
+}
+
+.zoom-controls {
+    position: fixed;
+    top: 20px;
+    left: 70px;
+    background-color: #000000e6;
+    border: 2px solid #5e5e5e;
+    border-radius: 12px;
+    padding: 10px 15px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    z-index: 10;
+}
+
+.zoom-controls button {
+    background-color: #252525;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.zoom-controls button:hover {
+    background-color: #3a3a3a;
+}
+
+.zoom-controls span {
+    color: #aaa;
+    font-size: 12px;
+}
+
+.panel-title {
+    font-size: 12px;
+    color: #fff;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #5e5e5e;
+    padding-bottom: 5px;
+}
+
+select {
+    width: 100%;
+    height: 35px;
+    border: none;
+    background-color: #252525;
+    color: #fff;
+    border-radius: 8px;
+    padding: 0 10px;
+    font-size: 12px;
+}
+
+input[type="number"] {
+    width: 100%;
+    height: 35px;
+    border: none;
+    background-color: #252525;
+    color: #fff;
+    border-radius: 8px;
+    padding: 0 10px;
+    font-size: 12px;
+}
+
+.format-info {
+    font-size: 10px;
+    color: #888;
+    margin-top: 5px;
+}
+</style>
+</head>
+<body>
+
+<div class="clpabelbase">
+    <div class="classmenu centerclasscolm marginmenus">
+        <label for="videoFile" class="clbt centerclss" title="Open video">
+            <span class="material-icons">folder_open</span>
+            <input type="file" id="videoFile" accept="video/*" style="display: none;">
+        </label>
+        <button class="clbt centerclss active" id="viewCanvas" title="View Canvas">
+            <span class="material-icons">image</span>
+        </button>
+        <button class="clbt centerclss" id="viewVideo" title="View Video">
+            <span class="material-icons">play_circle</span>
+        </button>
+        <button class="clbt centerclss" id="fullscreenBtn" disabled title="Fullscreen">
+            <span class="material-icons">fullscreen</span>
+        </button>
+        <button class="clbt centerclss" id="cutVideoBtn" disabled title="Cut video">
+            <span class="material-icons">content_cut</span>
+        </button>
+        <button class="clbt centerclss" id="downloadVideoBtn" disabled title="Download edited video">
+            <span class="material-icons">download</span>
+        </button>
+    </div>
+
+    <div class="clseccion centerclss">
+        <div class="zoom-controls">
+            <button id="zoomOut"><span class="material-icons" style="font-size: 16px;">remove</span></button>
+            <span id="zoomLevel">100%</span>
+            <button id="zoomIn"><span class="material-icons" style="font-size: 16px;">add</span></button>
+            <button id="zoomReset"><span class="material-icons" style="font-size: 16px;">refresh</span></button>
+        </div>
+
+        <div class="clsdivcanvas">
+            <div class="workspace">
+                <canvas id="canvas" class="canvas-area"></canvas>
+                <div id="videoContainer" class="video-area hidden">
+                    <video id="videoPlayer" controls></video>
+                </div>
+            </div>
+
+            <div class="cltooldcanvas">
+                <div class="panel-title">Drawing Tools</div>
+                
+                <div class="tool-group">
+                    <button class="tool-btn active" id="toolNone">
+                        <span class="material-icons" style="font-size: 16px;">pan_tool</span>
+                    </button>
+                    <button class="tool-btn" id="toolBrush">
+                        <span class="material-icons" style="font-size: 16px;">brush</span>
+                    </button>
+                    <button class="tool-btn" id="toolEraser">
+                        <span class="material-icons" style="font-size: 16px;">cleaning_services</span>
+                    </button>
+                </div>
+
+                <div class="control-group">
+                    <label>Color:</label>
+                    <input type="color" id="brushColor" value="#000">
+                </div>
+
+                <div class="control-group">
+                    <label>Size: <span id="brushSizeLabel">5</span>px</label>
+                    <input type="range" id="brushSize" min="1" max="50" value="5">
+                </div>
+
+                <button id="clearCanvas" class="clbt2" style="background-color: #252525;">
+                    <span class="material-icons" style="font-size: 16px; vertical-align: middle;">delete</span>
+                    Clear Canvas
+                </button>
+            </div>
+
+            <div class="divmenu2">
+                <div class="panel-title" style="width: 100%;">
+                    <span class="material-icons" style="font-size: 14px; vertical-align: middle;">camera</span>
+                    Frame Extraction
+                </div>
+                <input type="text" id="timeInput" class="clinput" value="0:00" placeholder="0:00 or 0">
+                <button id="extractBtn" class="clbt2" disabled>
+                    <span class="material-icons" style="font-size: 16px; vertical-align: middle;">photo_camera</span>
+                    Extract Frame
+                </button>
+            </div>
+
+            <div class="divmenu3">
+                <div class="panel-title">
+                    <span class="material-icons" style="font-size: 14px; vertical-align: middle;">collections</span>
+                    Range Extraction
+                </div>
+                
+                <div class="control-group">
+                    <label>Start:</label>
+                    <input type="text" id="startTime" class="clinput" value="0:00" placeholder="0:00">
+                </div>
+                
+                <div class="control-group">
+                    <label>End:</label>
+                    <input type="text" id="endTime" class="clinput" value="0:01" placeholder="0:01">
+                </div>
+                
+                <div class="control-group">
+                    <label>Interval (s):</label>
+                    <input type="number" id="intervalTime" step="0.001" value="0.033" min="0.001">
+                </div>
+                
+                <div class="control-group">
+                    <label>Format:</label>
+                    <select id="formatSelect">
+                        <option value="jpeg">JPG</option>
+                        <option value="png">PNG</option>
+                        <option value="webp">WEBP</option>
+                    </select>
+                    <div class="format-info">WEBP: better compression</div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Video Format:</label>
+                    <select id="videoFormatSelect">
+                        <option value="webm">WEBM (VP9)</option>
+                        <option value="webm-vp8">WEBM (VP8)</option>
+                        <option value="mp4">MP4 (H264)</option>
+                    </select>
+                    <div class="format-info">WEBM: better compatibility</div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Prefix:</label>
+                    <input type="text" id="namePrefix" class="clinput" value="frame_">
+                </div>
+                
+                <button id="extractRangeBtn" class="clbt2" disabled>
+                    <span class="material-icons" style="font-size: 16px; vertical-align: middle;">burst_mode</span>
+                    Extract Range
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="status-bar" id="statusBar">
+        Load a video to start (MP4, WEBM, OGG, AVI, MOV, MKV)
+    </div>
+</div>
+
+<div class="fullscreen-container" id="fullscreenContainer">
+    <video id="fullscreenVideo" controls></video>
+</div>
+
+<script>
+let video, canvas, ctx, fullscreenVideo;
+let currentZoom = 1;
+let videoLoaded = false;
+let currentTool = 'none';
+let isDrawing = false;
+let lastX = 0;
+let lastY = 0;
+let brushColor = '#000';
+let brushSize = 5;
+let canvasMode = true;
+let videoBlob = null;
+let audioContext = null;
+let audioSource = null;
+
+function init() {
+    video = document.getElementById('videoPlayer');
+    fullscreenVideo = document.getElementById('fullscreenVideo');
+    canvas = document.getElementById('canvas');
+    ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+    canvas.width = 1280;
+    canvas.height = 720;
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    document.getElementById('videoFile').addEventListener('change', loadVideo);
+    document.getElementById('extractBtn').addEventListener('click', extractCurrentFrame);
+    document.getElementById('zoomIn').addEventListener('click', () => setZoom(currentZoom + 0.25));
+    document.getElementById('zoomOut').addEventListener('click', () => setZoom(currentZoom - 0.25));
+    document.getElementById('zoomReset').addEventListener('click', () => setZoom(1));
+    document.getElementById('extractRangeBtn').addEventListener('click', extractRange);
+    document.getElementById('fullscreenBtn').addEventListener('click', toggleFullscreen);
+    document.getElementById('cutVideoBtn').addEventListener('click', cutVideoSegment);
+    document.getElementById('downloadVideoBtn').addEventListener('click', downloadEditedVideo);
+
+    document.getElementById('viewCanvas').addEventListener('click', () => switchView(true));
+    document.getElementById('viewVideo').addEventListener('click', () => switchView(false));
+
+    document.getElementById('toolNone').addEventListener('click', () => setTool('none'));
+    document.getElementById('toolBrush').addEventListener('click', () => setTool('brush'));
+    document.getElementById('toolEraser').addEventListener('click', () => setTool('eraser'));
+
+    document.getElementById('brushColor').addEventListener('change', (e) => {
+        brushColor = e.target.value;
+    });
+
+    document.getElementById('brushSize').addEventListener('input', (e) => {
+        brushSize = parseInt(e.target.value);
+        document.getElementById('brushSizeLabel').textContent = brushSize;
+    });
+
+    document.getElementById('clearCanvas').addEventListener('click', clearCanvas);
+
+    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', stopDrawing);
+    canvas.addEventListener('mouseout', stopDrawing);
+
+    canvas.addEventListener('touchstart', handleTouch);
+    canvas.addEventListener('touchmove', handleTouch);
+    canvas.addEventListener('touchend', stopDrawing);
+}
+
+function loadVideo(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const supportedFormats = ['video/mp4', 'video/webm', 'video/ogg', 'video/avi', 'video/quicktime', 'video/x-matroska'];
+    const isSupported = supportedFormats.some(format => file.type.startsWith('video/'));
+    
+    if (!isSupported && !file.name.match(/\.(mp4|webm|ogg|avi|mov|mkv)$/i)) {
+        updateStatus('Unsupported format. Use: MP4, WEBM, OGG, AVI, MOV, MKV');
+        return;
+    }
+
+    videoBlob = file;
+    const url = URL.createObjectURL(file);
+    video.src = url;
+    fullscreenVideo.src = url;
+
+    video.addEventListener('loadedmetadata', () => {
+        videoLoaded = true;
+        document.getElementById('extractBtn').disabled = false;
+        document.getElementById('extractRangeBtn').disabled = false;
+        document.getElementById('fullscreenBtn').disabled = false;
+        document.getElementById('cutVideoBtn').disabled = false;
+        document.getElementById('downloadVideoBtn').disabled = false;
+        document.getElementById('timeInput').max = video.duration;
+        document.getElementById('startTime').max = video.duration;
+        document.getElementById('endTime').max = video.duration;
+        document.getElementById('endTime').value = Math.min(1, video.duration);
+
+        updateStatus(`Video loaded: ${video.duration.toFixed(2)}s - ${video.videoWidth}x${video.videoHeight}`);
+
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+    });
+
+    video.addEventListener('error', (e) => {
+        updateStatus('Error loading video. Try another format.');
+        console.error('Video error:', e);
+    });
+
+    video.addEventListener('timeupdate', () => {
+        const currentTime = video.currentTime;
+        const minutes = Math.floor(currentTime / 60);
+        const seconds = Math.floor(currentTime % 60);
+        const milliseconds = Math.floor((currentTime % 1) * 1000);
+        document.getElementById('timeInput').value = `${minutes}:${String(seconds).padStart(2, '0')}.${String(milliseconds).padStart(3, '0')}`;
+    });
+
+    fullscreenVideo.addEventListener('timeupdate', () => {
+        const currentTime = fullscreenVideo.currentTime;
+        const minutes = Math.floor(currentTime / 60);
+        const seconds = Math.floor(currentTime % 60);
+        const milliseconds = Math.floor((currentTime % 1) * 1000);
+        document.getElementById('timeInput').value = `${minutes}:${String(seconds).padStart(2, '0')}.${String(milliseconds).padStart(3, '0')}`;
+    });
+}
+
+function parseTimeInput(timeStr) {
+    if (timeStr.includes(':')) {
+        const parts = timeStr.split(':');
+        const minutes = parseInt(parts[0]) || 0;
+        const secondsParts = parts[1].split('.');
+        const seconds = parseInt(secondsParts[0]) || 0;
+        const milliseconds = secondsParts[1] ? parseInt(secondsParts[1]) / 1000 : 0;
+        return minutes * 60 + seconds + milliseconds;
+    }
+    return parseFloat(timeStr) || 0;
+}
+
+function switchView(showCanvas) {
+    canvasMode = showCanvas;
+    if (showCanvas) {
+        canvas.classList.remove('hidden');
+        document.getElementById('videoContainer').classList.add('hidden');
+        document.getElementById('viewCanvas').classList.add('active');
+        document.getElementById('viewVideo').classList.remove('active');
+        canvas.style.cursor = currentTool === 'none' ? 'default' : 'crosshair';
+    } else {
+        canvas.classList.add('hidden');
+        document.getElementById('videoContainer').classList.remove('hidden');
+        document.getElementById('viewVideo').classList.add('active');
+        document.getElementById('viewCanvas').classList.remove('active');
+    }
+}
+
+function setTool(tool) {
+    currentTool = tool;
+    document.querySelectorAll('.tool-btn').forEach(btn => btn.classList.remove('active'));
+
+    if (tool === 'none') {
+        document.getElementById('toolNone').classList.add('active');
+        canvas.style.cursor = 'default';
+    } else if (tool === 'brush') {
+        document.getElementById('toolBrush').classList.add('active');
+        canvas.style.cursor = 'crosshair';
+    } else if (tool === 'eraser') {
+        document.getElementById('toolEraser').classList.add('active');
+        canvas.style.cursor = 'crosshair';
+    }
+}
+
+function extractCurrentFrame() {
+    if (!videoLoaded) return;
+
+    const timeValue = document.getElementById('timeInput').value;
+    const time = parseTimeInput(timeValue);
+    video.currentTime = time;
+
+    video.addEventListener('seeked', function drawFrame() {
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        video.removeEventListener('seeked', drawFrame);
+        updateStatus(`Frame extracted at ${time.toFixed(3)}s`);
+    });
+}
+
+function setZoom(zoom) {
+    currentZoom = Math.max(0.25, Math.min(4, zoom));
+
+    if (canvasMode) {
+        canvas.style.transform = `scale(${currentZoom})`;
+    }
+
+    document.getElementById('zoomLevel').textContent = `${Math.round(currentZoom * 100)}%`;
+}
+
+function clearCanvas() {
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    updateStatus('Canvas cleared');
+}
+
+function startDrawing(e) {
+    if (currentTool === 'none') return;
+    isDrawing = true;
+    const rect = canvas.getBoundingClientRect();
+    lastX = (e.clientX - rect.left) / currentZoom;
+    lastY = (e.clientY - rect.top) / currentZoom;
+}
+
+function draw(e) {
+    if (!isDrawing || currentTool === 'none') return;
+
+    const rect = canvas.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / currentZoom;
+    const y = (e.clientY - rect.top) / currentZoom;
+
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(x, y);
+    ctx.strokeStyle = currentTool === 'eraser' ? '#fff' : brushColor;
+    ctx.lineWidth = brushSize;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+
+    lastX = x;
+    lastY = y;
+}
+
+function stopDrawing() {
+    isDrawing = false;
+}
+
+function handleTouch(e) {
+    e.preventDefault();
+    const touch = e.touches[0];
+    if (!touch) return;
+
+    const mouseEvent = new MouseEvent(e.type === 'touchstart' ? 'mousedown' : 'mousemove', {
+        clientX: touch.clientX,
+        clientY: touch.clientY
+    });
+
+    canvas.dispatchEvent(mouseEvent);
+}
+
+async function extractRange() {
+    if (!videoLoaded) return;
+
+    const startTime = parseTimeInput(document.getElementById('startTime').value);
+    const endTime = parseTimeInput(document.getElementById('endTime').value);
+    const interval = parseFloat(document.getElementById('intervalTime').value);
+    const format = document.getElementById('formatSelect').value;
+    const prefix = document.getElementById('namePrefix').value;
+
+    if (endTime <= startTime) {
+        alert('El tiempo final debe ser mayor al inicial');
+        return;
+    }
+
+    if (interval <= 0) {
+        alert('El intervalo debe ser mayor a 0');
+        return;
+    }
+
+    const frames = [];
+    let currentTime = startTime;
+    let frameCount = 0;
+
+    updateStatus('Extrayendo frames...');
+    document.getElementById('extractRangeBtn').disabled = true;
+
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = video.videoWidth;
+    tempCanvas.height = video.videoHeight;
+    const tempCtx = tempCanvas.getContext('2d');
+
+    while (currentTime <= endTime) {
+        await seekToTime(currentTime, tempCanvas, tempCtx);
+        
+        const mimeType = format === 'webp' ? 'image/webp' : format === 'png' ? 'image/png' : 'image/jpeg';
+        const quality = format === 'jpeg' ? 0.95 : format === 'webp' ? 0.90 : undefined;
+        
+        const dataUrl = tempCanvas.toDataURL(mimeType, quality);
+        
+        const fileExt = format === 'jpeg' ? 'jpg' : format;
+        frames.push({
+            name: `${prefix}${String(frameCount).padStart(5, '0')}.${fileExt}`,
+            data: dataUrl
+        });
+        frameCount++;
+        currentTime += interval;
+
+        updateStatus(`Extracting: ${frameCount} frames`);
+    }
+
+    downloadFrames(frames);
+    updateStatus(`Completed: ${frameCount} frames extracted`);
+    document.getElementById('extractRangeBtn').disabled = false;
+}
+
+function seekToTime(time, targetCanvas, targetCtx) {
+    return new Promise((resolve) => {
+        video.currentTime = time;
+        video.addEventListener('seeked', function onSeek() {
+            targetCtx.drawImage(video, 0, 0, targetCanvas.width, targetCanvas.height);
+            video.removeEventListener('seeked', onSeek);
+            resolve();
+        });
+    });
+}
+
+function downloadFrames(frames) {
+    frames.forEach((frame, index) => {
+        setTimeout(() => {
+            const link = document.createElement('a');
+            link.download = frame.name;
+            link.href = frame.data;
+            link.click();
+        }, index * 100);
+    });
+}
+
+function toggleFullscreen() {
+    const container = document.getElementById('fullscreenContainer');
+    container.classList.toggle('active');
+
+    if (container.classList.contains('active')) {
+        fullscreenVideo.play();
+    } else {
+        fullscreenVideo.pause();
+    }
+}
+
+function updateStatus(message) {
+    document.getElementById('statusBar').textContent = message;
+}
+
+async function cutVideoSegment() {
+    if (!videoLoaded || !videoBlob) return;
+
+    const cutStart = prompt("INITIAL cut time (e.g.: 0:05 or 5):", "0:00");
+    if (!cutStart) return;
+
+    const cutEnd = prompt("FINAL cut time (e.g.: 0:10 or 10):", "0:00");
+    if (!cutEnd) return;
+
+    const startTime = parseTimeInput(cutStart);
+    const endTime = parseTimeInput(cutEnd);
+
+    if (endTime <= startTime) {
+        alert("End time must be greater than start time");
+        return;
+    }
+
+    if (startTime < 0 || endTime > video.duration) {
+        alert(`Times must be between 0 and ${video.duration.toFixed(2)} seconds`);
+        return;
+    }
+
+    updateStatus("Processing video...");
+    document.getElementById('cutVideoBtn').disabled = true;
+
+    try {
+        const videoStream = canvas.captureStream(30);
+        let combinedStream = videoStream;
+
+        try {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            
+            if (!audioSource) {
+                audioSource = audioContext.createMediaElementSource(video);
+                audioSource.connect(audioContext.destination);
+            }
+            
+            const destination = audioContext.createMediaStreamDestination();
+            audioSource.connect(destination);
+            
+            const audioTrack = destination.stream.getAudioTracks()[0];
+            if (audioTrack) {
+                combinedStream = new MediaStream([
+                    ...videoStream.getVideoTracks(),
+                    audioTrack
+                ]);
+            }
+        } catch (audioError) {
+            console.warn("Could not capture audio:", audioError);
+        }
+
+        const chunks = [];
+        const mediaRecorder = new MediaRecorder(combinedStream, {
+            mimeType: 'video/webm',
+            videoBitsPerSecond: 2500000
+        });
+
+        mediaRecorder.ondataavailable = (e) => {
+            if (e.data.size > 0) {
+                chunks.push(e.data);
+            }
+        };
+
+        mediaRecorder.onstop = () => {
+            const blob = new Blob(chunks, { type: 'video/webm' });
+            downloadVideo(blob, 'video_cut.webm');
+            updateStatus("Video cut and downloaded");
+            document.getElementById('cutVideoBtn').disabled = false;
+        };
+
+        video.currentTime = 0;
+        await waitForSeek();
+
+        mediaRecorder.start();
+
+        if (startTime > 0) {
+            await recordSegment(0, startTime);
+        }
+
+        video.currentTime = endTime;
+        await waitForSeek();
+
+        if (endTime < video.duration) {
+            await recordSegment(endTime, video.duration);
+        }
+
+        setTimeout(() => {
+            mediaRecorder.stop();
+            combinedStream.getTracks().forEach(track => track.stop());
+        }, 200);
+
+    } catch (error) {
+        console.error("Error cutting video:", error);
+        alert("Error processing video: " + error.message);
+        updateStatus("Error cutting video");
+        document.getElementById('cutVideoBtn').disabled = false;
+    }
+}
+
+async function captureVideoStream() {
+    try {
+        const stream = canvas.captureStream(30);
+        return { supported: true, stream };
+    } catch (error) {
+        return { supported: false, stream: null };
+    }
+}
+
+function waitForSeek() {
+    return new Promise((resolve) => {
+        video.addEventListener('seeked', function onSeek() {
+            video.removeEventListener('seeked', onSeek);
+            resolve();
+        });
+    });
+}
+
+async function recordSegment(start, end) {
+    video.currentTime = start;
+    await waitForSeek();
+    
+    video.play();
+    
+    const duration = (end - start) * 1000;
+    
+    return new Promise((resolve) => {
+        const interval = setInterval(() => {
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            if (video.currentTime >= end || video.ended) {
+                clearInterval(interval);
+                video.pause();
+                resolve();
+            }
+        }, 1000 / 30);
+        
+        setTimeout(() => {
+            clearInterval(interval);
+            video.pause();
+            resolve();
+        }, duration + 100);
+    });
+}
+
+function downloadVideo(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(url);
+}
+
+async function downloadEditedVideo() {
+    if (!videoLoaded) return;
+
+    const formatSelect = document.getElementById('videoFormatSelect').value;
+    let mimeType, extension, codec;
+
+    if (formatSelect === 'webm') {
+        mimeType = 'video/webm;codecs=vp9,opus';
+        extension = 'webm';
+        codec = 'VP9';
+    } else if (formatSelect === 'webm-vp8') {
+        mimeType = 'video/webm;codecs=vp8,opus';
+        extension = 'webm';
+        codec = 'VP8';
+    } else if (formatSelect === 'mp4') {
+        mimeType = 'video/webm';
+        extension = 'webm';
+        codec = 'WEBM';
+    }
+
+    if (!MediaRecorder.isTypeSupported(mimeType)) {
+        mimeType = 'video/webm';
+        extension = 'webm';
+    }
+
+    const startTime = prompt("Start time (e.g.: 0:00 or 0):", "0:00");
+    if (startTime === null) return;
+
+    const endTime = prompt("End time (e.g.: 0:10 or use 'end' for entire video):", "end");
+    if (endTime === null) return;
+
+    const start = parseTimeInput(startTime);
+    const end = endTime.toLowerCase() === 'end' ? video.duration : parseTimeInput(endTime);
+
+    if (end <= start) {
+        alert("End time must be greater than start time");
+        return;
+    }
+
+    if (start < 0 || end > video.duration) {
+        alert(`Times must be between 0 and ${video.duration.toFixed(2)} seconds`);
+        return;
+    }
+
+    updateStatus(`Generating video with audio...`);
+    document.getElementById('downloadVideoBtn').disabled = true;
+
+    try {
+        const videoStream = canvas.captureStream(30);
+        let combinedStream = videoStream;
+
+        try {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            
+            if (!audioSource) {
+                audioSource = audioContext.createMediaElementSource(video);
+                audioSource.connect(audioContext.destination);
+            }
+            
+            const destination = audioContext.createMediaStreamDestination();
+            audioSource.connect(destination);
+            
+            const audioTrack = destination.stream.getAudioTracks()[0];
+            if (audioTrack) {
+                combinedStream = new MediaStream([
+                    ...videoStream.getVideoTracks(),
+                    audioTrack
+                ]);
+            }
+        } catch (audioError) {
+            console.warn("Could not capture audio:", audioError);
+            updateStatus("Generating video without audio...");
+        }
+
+        const chunks = [];
+        const mediaRecorder = new MediaRecorder(combinedStream, { 
+            mimeType,
+            videoBitsPerSecond: 2500000
+        });
+
+        mediaRecorder.ondataavailable = (e) => {
+            if (e.data.size > 0) {
+                chunks.push(e.data);
+            }
+        };
+
+        mediaRecorder.onstop = () => {
+            const blob = new Blob(chunks, { type: mimeType });
+            const filename = `video_edited_${Date.now()}.${extension}`;
+            downloadVideo(blob, filename);
+            updateStatus(`Video downloaded: ${filename}`);
+            document.getElementById('downloadVideoBtn').disabled = false;
+        };
+
+        video.currentTime = start;
+        await waitForSeek();
+
+        mediaRecorder.start();
+        video.play();
+
+        const duration = end - start;
+        let startRecordTime = Date.now();
+
+        const renderFrame = () => {
+            const elapsed = (Date.now() - startRecordTime) / 1000;
+            
+            if (video.currentTime >= end || video.ended || elapsed >= duration) {
+                video.pause();
+                setTimeout(() => {
+                    mediaRecorder.stop();
+                    combinedStream.getTracks().forEach(track => track.stop());
+                }, 100);
+                return;
+            }
+
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            requestAnimationFrame(renderFrame);
+        };
+
+        renderFrame();
+
+    } catch (error) {
+        console.error("Error al generar video:", error);
+        alert("Error al generar el video: " + error.message);
+        updateStatus("Error al generar video");
+        document.getElementById('downloadVideoBtn').disabled = false;
+    }
+}
+
+init();
+</script>
+</body>
+</html>
